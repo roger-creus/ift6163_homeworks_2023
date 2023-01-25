@@ -52,7 +52,7 @@ def test_log_file_custom_env(log_file):
                 scalar = float(values[2])
                 bc_return = scalar
                 
-    # Check if bc_return is 30% lower than expert_return
+    # Check if bc_return is lower than 30% of the expert return
     if bc_return < (expert_return * 0.3):
         return True
     else:
