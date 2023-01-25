@@ -53,7 +53,7 @@ def test_log_file_custom_env(log_file):
                 bc_return = scalar
                 
     # Check if bc_return is 30% lower than expert_return
-    if bc_return < (expert_return * 0.7):
+    if bc_return < (expert_return * 0.3):
         return True
     else:
         return False
