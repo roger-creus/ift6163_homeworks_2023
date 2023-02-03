@@ -6,7 +6,8 @@ ARG CUDA=11.4.0
 
 # RUN echo nvidia/cudagl${ARCH:+-$ARCH}:${CUDA}-base-ubuntu${UBUNTU_VERSION}
 # FROM nvidia/cudagl${ARCH:+-$ARCH}:${CUDA}-base-ubuntu${UBUNTU_VERSION} as base
-FROM nvidia/cudagl:11.4.2-base-ubuntu20.04 as base
+#FROM nvidia/cudagl:11.4.2-base-ubuntu20.04 as base
+FROM liqingya/mujoco:dmc-atari-py36-torch1.7-cu110
 # ARCH and CUDA are specified again because the FROM directive resets ARGs
 # (but their default value is retained if set previously)
 
@@ -16,7 +17,6 @@ ARG CUDA
 ARG CUDNN=7.6.5.32-1
 
 SHELL ["/bin/bash", "-c"]
-
 
 ENV DEBIAN_FRONTEND="noninteractive"
 # See http://bugs.python.org/issue19846
@@ -104,6 +104,8 @@ RUN ls
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-#RUN conda install pytorch torchvision torchaudio pytorch-cuda=11.6 -c pytorch -c nvidia
+RUN conda install pytorch torchvision torchaudio pytorch-cuda=11.6 -c pytorch -c nvidia
+
+RUN pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
 
 RUN ls

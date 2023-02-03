@@ -16,7 +16,6 @@ _str_to_activation = {
     'identity': nn.Identity(),
 }
 
-
 def build_mlp(
         input_size: int,
         output_size: int,
@@ -47,10 +46,22 @@ def build_mlp(
 
     # TODO: return a MLP. This should be an instance of nn.Module
     # Note: nn.Sequential is an instance of nn.Module.
-    raise NotImplementedError
+
+    modules = []
+    modules.append(nn.Linear(input_size, size))
+    modules.append(activation)
+    
+    for layer in range(n_layers):
+        modules.append(nn.Linear(size, size))
+        modules.append(activation)
+
+    modules.append(nn.Linear(size, output_size))
+    modules.append(output_activation)
+
+    sequential = nn.Sequential(*modules)
+    return sequential
 
 device = None
-
 
 def init_gpu(use_gpu=True, gpu_id=0):
     global device
